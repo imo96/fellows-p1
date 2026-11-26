@@ -164,9 +164,10 @@ venv\Scripts\activate.bat
 pip install -r requirements.txt
 ```
 
+(VS Code のターミナルは標準で PowerShell です。PowerShell では `.\venv\Scripts\Activate.ps1` を使います。詳しくは `アプリ実行手順_Python.md` の注意を参照)
+
 3. `C:\fellowsapp` に `myappdb.sqlite3` があることを確認する(setup.bat が配置済み)
 4. `python manage.py runserver` で `http://127.0.0.1:8000/login` を開く
-5. 動作確認後、`python -m pip freeze > requirements.txt` でバージョン付きの requirements.txt を作り直す(PowerShell の `>` は UTF-16 になるので、PowerShell では `| Out-File -Encoding ascii requirements.txt` を使う)
 
 ## 6. 動作確認
 
@@ -200,13 +201,24 @@ AWS(AMI)側は現状のままです。ローカルは SQLite ですが、AWS で
 | 項目 | 内容 |
 | --- | --- |
 | 公開 URL | `http://IP:8081/` |
-| 送るもの | `myapp.tar.gz`(config、app、static、templates、manage.py、requirements.txt)。**myappdb.sqlite3 は含めない** |
-| 反映方法 | FileZilla で `/home/ec2-user/` へ送り `bash deploy.sh` |
+| 送るもの | `myapp.tar.gz`(config、app、static、templates、manage.py、requirements.txt。`manage.py` はアーカイブの直下に置く)。**myappdb.sqlite3 と venv は含めない** |
+| 反映方法 | FileZilla で `/home/ec2-user/` へ送り `bash deploy.sh`(`/opt/myapp/` へ同期 → `pip install -r requirements.txt` → `migrate` → `collectstatic` → gunicorn 再起動) |
 | 本番設定 | `/opt/myapp-conf/settings_prod.py` と `/etc/myapp/env` が上書き(`DATABASES` を PostgreSQL にし、`DJANGO_SECRET_KEY` と DB 接続の環境変数を `/etc/myapp/env` から読む) |
+
+**tar.gz の作り方**(PowerShell またはコマンドプロンプトで、`manage.py` があるフォルダ `C:\fellowsapp` に移動して実行します)
+
+```
+cd C:\fellowsapp
+tar -czf myapp.tar.gz --exclude=__pycache__ --exclude=myappdb.sqlite3 config app static templates manage.py requirements.txt
+```
+
+- 含めるフォルダ・ファイルをコマンドで明示しているため、`venv` と `myappdb.sqlite3` は自動的に入りません(手作業で外す必要はありません)。`--exclude` は念のための保険です
+- `C:\fellowsapp` で実行すると、`manage.py` がアーカイブの直下に入ります(`deploy.sh` はこれを確認します)
+- `myapp_Python.zip` や `venv` フォルダを tar に追加しないでください
 
 資材をアップロードするときに必要な変更(DB 定義まわり):
 
-- `requirements.txt`: ローカルの SQLite 用には `psycopg` が入っていないが、AMI の venv に `psycopg[binary]` が導入済みのため、追加は不要
+- `requirements.txt`: AWS の `deploy.sh` は `pip install -r requirements.txt` を実行するため、ファイル自体は必須(Claude が生成した `Django>=6.1,<6.2` のままで動く)。バージョンを固定したい場合だけ、アプリのフォルダで `python -m pip freeze > requirements.txt`(PowerShell は `| Out-File -Encoding ascii requirements.txt`。`>` は UTF-16 になるため使わない)で作り直す(任意)。ローカルの SQLite 用には `psycopg` が入っていないが、AMI の venv に `psycopg[binary]` が導入済みのため、追加は不要
 - `settings.py` の `DATABASES`(SQLite)は、`settings_prod.py` が PostgreSQL の設定で上書きする(`ENGINE`: `django.db.backends.postgresql`、`HOST`・`PORT`・`NAME`・`USER`・`PASSWORD` は環境変数)。アプリのコードは変更しない
 - AWS の PostgreSQL には、従来どおり PostgreSQL 版の `テーブル定義書（myappdb）.sql`(`DROP TABLE … CASCADE`、`SERIAL`。元の `AI生成プログラム` フォルダにある Shift_JIS のファイル)でテーブルと初期データを作る(今回の SQLite 版 sql は SQLite 専用)
 - アプリの SQL(`COUNT(DISTINCT o.注文日 || '|' || o.注文番号)`)は、PostgreSQL でも使える書き方にしてある(AWS での動作は未確認)

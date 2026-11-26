@@ -15,10 +15,17 @@ Python アプリの生成から動作確認までの手順です。データベ�
 | やりたいこと | cmd | PowerShell |
 |---|---|---|
 | ファイルの中身を表示 | `type` | `Get-Content` |
+| フォルダを移動 | `cd /d C:\fellowsapp` | `cd C:\fellowsapp` |
 | venv を有効化 | `venv\Scripts\activate.bat` | `.\venv\Scripts\Activate.ps1` |
 | ファイルに書き出す | `> file`(そのまま使える) | `Out-File -Encoding ascii`(`>` は UTF-16 になる) |
 
 以降は cmd で説明します。
+
+> **注意**: VS Code のターミナルは、標準で **PowerShell** です。cmd のコマンド(`venv\Scripts\activate.bat` など)を PowerShell に入力しても、仮想環境は有効になりません(`activate.bat` は別の cmd の中で動くため)。次のどちらかにしてください。
+> - ターミナル右上の「＋」の横の「▼」から **Command Prompt** を選び、cmd のターミナルを開く
+> - PowerShell のまま、上の表の PowerShell 列のコマンドを使う(`Activate.ps1` が「スクリプトの実行が無効」と拒否されたら、`Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` を実行してから、もう一度実行する)
+>
+> 有効になると、行の先頭に `(venv)` と表示されます。表示されていないときは、まだ有効になっていません(`deactivate` も使えません)。
 
 ### 1. 仮想環境の作成
 
@@ -34,11 +41,13 @@ cd /d C:\fellowsapp
   python -m venv venv
   ```
 
-- 毎回実施: 仮想環境を有効化する
+- 毎回実施: 仮想環境を有効化する(行の先頭に `(venv)` と出れば成功)
 
   ```
   venv\Scripts\activate.bat
   ```
+
+  PowerShell の場合: `.\venv\Scripts\Activate.ps1`
 
 - 作業終了時に実施: 仮想環境を終了(無効化)する
 
@@ -85,17 +94,3 @@ python manage.py runserver
 |---|---|
 | ユーザ名 | `user@example.com` |
 | パスワード | `1234` |
-
-### 6. requirements.txt の生成
-
-環境を作ったときに実行します。
-
-```
-python -m pip freeze > requirements.txt
-```
-
-中身の確認:
-
-```
-type requirements.txt
-```
