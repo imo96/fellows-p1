@@ -11,6 +11,8 @@
   画面名 : 注文情報表示画面(注文情報詳細画面)
   商品一覧画面で選んだ商品の注文を一覧表示する
   表示内容はアプリから受け取る(下の行はデザイン確認用のサンプル)
+  【補足】一覧の行の値はデザイン確認用のダミーです。値は無視してください(実際の値はテーブルから表示する)
+  クーポン割引料が NULL の場合は空欄にする(0 は表示しない)
   表示形式(画面定義より)
     商品コード     : xxxxx
     注文日         : yyyy/MM/dd
@@ -53,21 +55,21 @@
           <td class="code">OD2026001000</td>
           <td class="num">1</td>
           <td class="num">1</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/08/08</td>
           <td class="code">OD2026001037</td>
           <td class="num">2</td>
           <td class="num">5</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/08/15</td>
           <td class="code">OD2026001074</td>
           <td class="num">3</td>
           <td class="num">1,500</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/08/22</td>
@@ -88,28 +90,28 @@
           <td class="code">OD2026001185</td>
           <td class="num">3</td>
           <td class="num">10</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/09/16</td>
           <td class="code">OD2026001222</td>
           <td class="num">1</td>
           <td class="num">10</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/09/23</td>
           <td class="code">OD2026001259</td>
           <td class="num">2</td>
           <td class="num">5</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/09/03</td>
           <td class="code">OD2026001296</td>
           <td class="num">3</td>
           <td class="num">2</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/09/10</td>
@@ -137,7 +139,7 @@
           <td class="code">OD2026001444</td>
           <td class="num">1</td>
           <td class="num">10</td>
-          <td class="num">0</td>
+          <td class="num"></td>
         </tr>
         <tr>
           <td>2026/10/11</td>
