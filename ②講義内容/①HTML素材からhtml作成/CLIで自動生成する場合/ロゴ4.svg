@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <title>むすっと涙目ネコ</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D9EEFB"/>
+      <stop offset="1" stop-color="#F3E3F7"/>
+    </linearGradient>
+    <radialGradient id="face" cx="0.42" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#FFFBF4"/>
+      <stop offset="0.65" stop-color="#FFEFDD"/>
+      <stop offset="1" stop-color="#FAD9C3"/>
+    </radialGradient>
+    <radialGradient id="cheek" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FF9FB5" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#FF9FB5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="eye" cx="0.5" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#6A5578"/>
+      <stop offset="1" stop-color="#3E2F4D"/>
+    </radialGradient>
+    <linearGradient id="tear" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E4F5FF"/>
+      <stop offset="1" stop-color="#9FD6F5"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <!-- 背景（アプリアイコン風の角丸） -->
+  <rect width="800" height="800" rx="180" fill="url(#bg)"/>
+  <circle cx="130" cy="120" r="50" fill="#FFFFFF" opacity="0.35"/>
+  <circle cx="690" cy="700" r="70" fill="#FFFFFF" opacity="0.3"/>
+
+  <!-- 影 -->
+  <ellipse cx="400" cy="690" rx="230" ry="26" fill="#B7A3CC" opacity="0.45" filter="url(#soft)"/>
+
+  <!-- 耳（丸い先端：同色の太い線で角を丸める） -->
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="190,360 215,200 350,280" fill="#FAD9C3" stroke="#FAD9C3" stroke-width="52"/>
+    <polygon points="610,360 585,200 450,280" fill="#FAD9C3" stroke="#FAD9C3" stroke-width="52"/>
+    <polygon points="222,330 232,235 312,285" fill="#FFB8C9" stroke="#FFB8C9" stroke-width="26"/>
+    <polygon points="578,330 568,235 488,285" fill="#FFB8C9" stroke="#FFB8C9" stroke-width="26"/>
+  </g>
+
+  <!-- 顔（ふっくら丸い） -->
+  <ellipse cx="400" cy="460" rx="285" ry="225" fill="url(#face)"/>
+  <!-- 下側のうっすら影 -->
+  <path d="M130 500 Q400 760 670 500 Q640 640 400 685 Q160 640 130 500Z" fill="#F4C4A8" opacity="0.28"/>
+  <!-- ハイライト -->
+  <ellipse cx="300" cy="290" rx="90" ry="22" fill="#FFFFFF" opacity="0.6" transform="rotate(-12 300 290)"/>
+
+  <!-- ほっぺ -->
+  <ellipse cx="220" cy="535" rx="62" ry="42" fill="url(#cheek)"/>
+  <ellipse cx="580" cy="535" rx="62" ry="42" fill="url(#cheek)"/>
+
+  <!-- まゆ（むすっと：内側が下がる） -->
+  <g stroke="#7A5C6E" stroke-width="16" stroke-linecap="round" fill="none">
+    <path d="M250 372 L345 395"/>
+    <path d="M550 372 L455 395"/>
+  </g>
+
+  <!-- 目（大きく・うるっと） -->
+  <ellipse cx="300" cy="458" rx="52" ry="60" fill="url(#eye)"/>
+  <ellipse cx="500" cy="458" rx="52" ry="60" fill="url(#eye)"/>
+  <circle cx="283" cy="435" r="19" fill="#FFFFFF"/>
+  <circle cx="483" cy="435" r="19" fill="#FFFFFF"/>
+  <circle cx="320" cy="482" r="9" fill="#FFFFFF"/>
+  <circle cx="520" cy="482" r="9" fill="#FFFFFF"/>
+  <!-- うるうるの下まぶた -->
+  <path d="M258 490 Q300 520 342 490" stroke="#BFE6FA" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.8"/>
+  <path d="M458 490 Q500 520 542 490" stroke="#BFE6FA" stroke-width="7" stroke-linecap="round" fill="none" opacity="0.8"/>
+
+  <!-- 涙 -->
+  <path d="M262 520 C240 556 238 590 262 598 C286 606 292 568 262 520Z" fill="url(#tear)" stroke="#8CCBEE" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="256" cy="574" rx="5" ry="9" fill="#FFFFFF" opacity="0.9" transform="rotate(12 256 574)"/>
+  <path d="M538 520 C516 556 514 590 538 598 C562 606 568 568 538 520Z" fill="url(#tear)" stroke="#8CCBEE" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="532" cy="574" rx="5" ry="9" fill="#FFFFFF" opacity="0.9" transform="rotate(12 532 574)"/>
+
+  <!-- 鼻 -->
+  <path d="M378 528 Q400 520 422 528 Q412 552 400 556 Q388 552 378 528Z" fill="#FF9DB0" stroke="#FF9DB0" stroke-width="12" stroke-linejoin="round"/>
+
+  <!-- 口（へのじ） -->
+  <path d="M352 622 Q376 586 400 596 Q424 586 448 622" stroke="#7A5C6E" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- ひげ（太く丸く） -->
+  <g stroke="#C9A9B8" stroke-width="12" stroke-linecap="round" fill="none">
+    <path d="M150 505 L100 495"/>
+    <path d="M150 545 L100 560"/>
+    <path d="M650 505 L700 495"/>
+    <path d="M650 545 L700 560"/>
+  </g>
+
+  <!-- 頬のしるし（右側の斜線2本） -->
+  <g stroke="#FF8FA8" stroke-width="16" stroke-linecap="round" fill="none">
+    <path d="M706 350 L722 392"/>
+    <path d="M740 340 L756 382"/>
+  </g>
+</svg>
