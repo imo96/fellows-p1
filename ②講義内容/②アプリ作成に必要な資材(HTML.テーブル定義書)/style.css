@@ -169,7 +169,7 @@ tbody tr:hover { background: var(--row-hover); }
 .num { text-align: right; font-variant-numeric: tabular-nums; }
 th.num { text-align: right; }
 .code { font-family: ui-monospace, "Consolas", monospace; font-size: 14px; }
-.name { max-width: 25em; overflow: hidden; text-overflow: ellipsis; }
+.name { max-width: calc(25em + 32px); /* 左右padding 32px 分を足して 25 文字分を確保 */ overflow: hidden; text-overflow: ellipsis; }
 .minus { color: var(--danger); }
 .muted { color: var(--muted); }
 
