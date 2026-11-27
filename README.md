@@ -205,6 +205,8 @@ AWS(AMI)側は現状のままです。ローカルは SQLite ですが、AWS で
 | 反映方法 | FileZilla で `/home/ec2-user/` へ送り `bash deploy.sh`(`/opt/myapp/` へ同期 → `pip install -r requirements.txt` → `migrate` → `collectstatic` → gunicorn 再起動) |
 | 本番設定 | `/opt/myapp-conf/settings_prod.py` と `/etc/myapp/env` が上書き(`DATABASES` を PostgreSQL にし、`DJANGO_SECRET_KEY` と DB 接続の環境変数を `/etc/myapp/env` から読む) |
 
+**生成した zip と tar.gz の関係:** Claude が作った `myapp_Python.zip` と、下の tar コマンドで作る `myapp.tar.gz` は、**中身が同じ**です(config、app、static、templates、manage.py、requirements.txt)。AWS の `deploy.sh` は `/home/ec2-user/myapp.tar.gz`(tar.gz 形式)しか受け取れず、zip のままでは展開できません。そのため、zip の中身を tar.gz に**包み直す**だけの手順です(中身は変えません)。
+
 **tar.gz の作り方**(PowerShell またはコマンドプロンプトで、`manage.py` があるフォルダ `C:\fellowsapp` に移動して実行します)
 
 ```
@@ -249,5 +251,5 @@ tar -czf myapp.tar.gz --exclude=__pycache__ --exclude=myappdb.sqlite3 config app
 - [x] 講師による事前生成と動作確認(myapp_Python.zip を SQLite 用に作り直し、Django 6.1 で確認済み)
 - [x] フェーズ② AWS は現状の AMI のまま。ローカルは SQLite、AWS は PostgreSQL で動かす(2026/11/26)
 - [x] AMI 側の設定を確認(settings_prod.py が PostgreSQL 設定、psycopg 導入済み、環境変数は /etc/myapp/env)
-- [ ] AWS 上での動作確認(PostgreSQL 版 sql の用意、このアプリを載せて動かす)
+- [x] AWS 上での動作確認(PostgreSQL 版 sql の用意、このアプリを載せて動かす)(2026/11/27 確認済み)
 - [x] `テーブル定義書（myappdb）.xlsx` は、`SQLite用` と `AWS用`(PostgreSQL 時点の内容)の 2 種類にする(2026/11/26)
